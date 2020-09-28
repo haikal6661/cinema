@@ -18,6 +18,12 @@
 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addRoleModal"><i class="fas fa-plus"></i>
   Add New Role
 </button>
+@if (session('success'))
+<div class="alert alert-success alert-block">
+  <button type="button" class="close" data-dismiss="alert">×</button>	
+  <strong>{{ session('success') }}</strong>
+</div>
+@endif
 <!-- Modal -->
 <div class="modal fade" id="addRoleModal" tabindex="-1" role="dialog" aria-labelledby="roleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -78,25 +84,21 @@
                   </button>
                 </div>
                 <div class="modal-body">
-                  <form name="assign_role" method="post" action="/{{$item->id}}/assign" enctype="multipart/form-data">
+                  <form name="assign_role" method="post" action="{{$item->id}}/assign" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
-                      <label for="role-to-assign">Select Role To Assign:</label>
-                      <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          Please select role...
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                          <a class="dropdown-item" href="#">Action</a>
-                          <a class="dropdown-item" href="#">Another action</a>
-                          <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
+                      <div class="form-group">
+                        <label for="role">Select Role To Assign:</label>
+                        <select name="role" class="form-control">
+                          @foreach ($roles as $key => $role)
+                          <option value="{{$role->id}}">{{$role->name}}</option>
+                          @endforeach
+                        </select>
                       </div>
                     </div>
-                </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                  <button type="submit" name="form2" class="btn btn-primary">Assign</button>
+                  <button type="submit" class="btn btn-primary">Assign</button>
                 </div>
               </form>
               </div>

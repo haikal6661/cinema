@@ -140,7 +140,12 @@
                     </div>
                     <div class="sb-sidenav-footer">
                         <div class="small">Logged in as:</div>
-                        Start Bootstrap
+                        @role('admin')
+                        <h5>Admin</h5>
+                        @endrole
+                        @role('user')
+                        <h5>User</h5>
+                        @endrole
                     </div>
                 </nav>
             </div>

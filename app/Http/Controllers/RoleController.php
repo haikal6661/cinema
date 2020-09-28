@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 use App\Role;
+use App\User;
 use Illuminate\Http\Request;
 
 class RoleController extends Controller
@@ -26,8 +27,9 @@ class RoleController extends Controller
     public function index()
     {
         $users = DB::table('users')->get();
+        $roles = DB::table('roles')->get();
 
-        return view('admin.user_role',['users' => $users]);
+        return view('admin.user_role',['users' => $users],['roles'=>$roles]);
     }
 
     /**
@@ -36,11 +38,19 @@ class RoleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function assignRole($userId)
+    public function assignRole(Request $request,$userId)
     {
         //$user = DB::table('users')->get();
+        $data = $request->input();
+        $roleId = $data['role'];
+        
+        $user = User::find($userId);
+        $role = Role::find($roleId);
 
-        dd($userId);
+        $user->assignRole($role);
+
+        return redirect('user_role')->with('success', 'Role Assigned Successfully.');
+        
     }
 
     /**
