@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
 
 Auth::routes();
 
@@ -36,3 +36,6 @@ Route::get('/manage_user', 'UserController@list')->name('user_list');
 Route::get('/user_role', 'RoleController@index')->name('user_role');
 Route::post('/user_role', 'RoleController@store')->name('add_role');
 Route::post('/{user}/assign', 'RoleController@assignRole')->name('assign_role');
+Route::get('/showtime', function(){
+    return view('user.showtime');
+})->name('showtime');

@@ -85,8 +85,8 @@
       
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="#">Showtime <span class="sr-only">(current)</span></a>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ route('showtime') }}">Showtime</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Cinema</a>
@@ -111,7 +111,12 @@
             @if (Route::has('login'))
             <div class="">
                 @auth
+                @role('admin')
                     <a href="{{ url('/home') }}">Dashboard</a>
+                @endrole
+                @role('user')
+                    <a href="{{ url('/home') }}">Profile</a>
+                @endrole
                 @else
                     <a href="{{ route('login') }}">Login</a>
 
